@@ -46,8 +46,8 @@ const int L_PWM_2 = 10;          // PWM output pin for Motor 2
 const int FeedbackPin1 = A0;   // Motor 1 feedback pin
 const int FeedbackPin2 = A1;   // Motor 2 feedback pin
 
-int CenterOffset1 = 32;    // Adjust center offset of feedback position
-int CenterOffset2 = 8;    // Adjust center offset of feedback position
+int CenterOffset1 = 0;    // Adjust center offset of feedback position
+int CenterOffset2 = 0;    // Adjust center offset of feedback position
 
 // Currently disabled
 int CutoffLimitMax1 = 1000;    // The position beyond which the motors are disabled
@@ -59,9 +59,6 @@ int InputClipMax1 = 650;    // The input position beyond which the target input 
 int InputClipMax2 = 650;    // The input position beyond which the target input is clipped (default: 923)
 int InputClipMin1 = 373;      // The input position beyond which the target input is clipped (default: 100)
 int InputClipMin2 = 373;      // The input position beyond which the target input is clipped (default: 100)
-
-int LiftFactor1 = 50;   // was 10 - Increase PWM when driving motor in direction it has to work harder 
-int LiftFactor2 = 50;   // was 10 - Increase PWM when driving motor in direction it has to work harder 
 
 int PIDProcessDivider = 1;  // divider for the PID process timer
 int PIDProcessCounter = 0;
@@ -89,6 +86,9 @@ int PWMoffset1 = 100; // PMWMin1
 int PWMoffset2 = 100; // PMWMin2
 int PWMmax1 = 150;
 int PWMmax2 = 150;
+
+int LiftFactor1 = 0; //255-PWMmax1;   // Increase PWM when driving motor in direction it has to work harder 
+int LiftFactor2 = 0; //255-PWMmax2;   // Increase PWM when driving motor in direction it has to work harder 
 
 void setup()
 {
@@ -400,8 +400,8 @@ void SetOutputsMotor1()
         {                                    
             // Drive Motor Forward 
             PWMout1+=PWMoffset1;
-            if(PWMout1 > (PWMmax1+LiftFactor1)){
-                PWMout1=PWMmax1+LiftFactor1;
+            if(PWMout1 > (PWMmax1)){
+                PWMout1=PWMmax1;
             }
             digitalWrite(L_PWM_1, LOW);
             analogWrite(R_PWM_1, PWMout1);
@@ -414,6 +414,8 @@ void SetOutputsMotor1()
             if(PWMout1 > PWMmax1){
                 PWMout1=PWMmax1;
             }
+            //drive harder
+            PWMout1+=LiftFactor1;
             digitalWrite(R_PWM_1, LOW);
             analogWrite(L_PWM_1, PWMout1);
         }
@@ -435,8 +437,8 @@ void SetOutputsMotor2()
         {                                    
             // Drive Motor Forward 
             PWMout2+=PWMoffset2;
-            if(PWMout2 > (PWMmax2+LiftFactor2)){
-                PWMout2=PWMmax2+LiftFactor2;
+            if(PWMout2 > (PWMmax2)){
+                PWMout2=PWMmax2;
             }
             digitalWrite(L_PWM_2, LOW);
             analogWrite(R_PWM_2, PWMout2);
@@ -449,6 +451,8 @@ void SetOutputsMotor2()
             if(PWMout2 > PWMmax2){
                 PWMout2=PWMmax2;
             }
+            //drive harder
+            PWMout2+=LiftFactor2;
             digitalWrite(R_PWM_2, LOW);
             analogWrite(L_PWM_2, PWMout2);
         }

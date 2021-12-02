@@ -1,5 +1,17 @@
 # SMC3
 
+## Changes
+
+For experimental use only since safety measures has been removed or disabled.
+
+Adapted code for:
+
+- Arduino Leonardo/Micro Pro
+- IBT_2 (MODE2) controller only
+- Simplicity over performance
+
+## General
+
 The SMC3 is a "Simulator Motor Controller for 3 Motors" written for the Arduino UNO R3. At the time of writing this it has not 
 been tested on any other Arduino model. The SMC3 uses a PID motor control loop. The PID algorithm has been optimised for this
 application and achieves 4096 PID updates per second for all three motors giving smooth precise motor control with well tuned
@@ -16,10 +28,12 @@ parameters. Some characteristics of the controller:
 - There are currently two MODES of operation that are configured by a single line of code at compile time before uploading to the Arduino.
 
 ## MODE1: Supports the more common H-Bridges used in the forums.
+
 This mode has a PWM output pin plus two Motor Direction output pins.
 Examples include the MonsterMoto shield.
 
 ## MODE2: Designed for H-Bridges that require direct drive of Highside and Lowside switch inputs.
+
 In this mode one switch is driven as a direction pin and the other with the PWM output however
 the PWM duty needs to be inverted whenever the motor changes direction with the direction pin.
 (An alternate approach would be to switch the PWM between inputs as direction changes)
