@@ -67,12 +67,12 @@ int SerialFeedbackEnabled = 0;
 int SerialFeedbackPort = 0;
 
 int Ks1 = 0;
-long Kp1_x100 = 400;		//initial value
+long Kp1_x100 = 400;		// initial value 400,0,0
 long Ki1_x100 = 0;
 long Kd1_x100 = 0;
 
 int Ks2 = 0;
-long Kp2_x100 = 400;		//initial value
+long Kp2_x100 = 400;		// initial value 400,0,0
 long Ki2_x100 = 0;
 long Kd2_x100 = 0;
 
@@ -87,8 +87,8 @@ int PWMoffset2 = 100; // PMWMin2
 int PWMmax1 = 150;
 int PWMmax2 = 150;
 
-int LiftFactor1 = 0; //255-PWMmax1;   // Increase PWM when driving motor in direction it has to work harder 
-int LiftFactor2 = 0; //255-PWMmax2;   // Increase PWM when driving motor in direction it has to work harder 
+int LiftFactor1 = 255-PWMmax1;   // Default: 0; Increase PWM when driving motor in direction it has to work harder 
+int LiftFactor2 = 255-PWMmax2;   // Default: 0; Increase PWM when driving motor in direction it has to work harder 
 
 void setup()
 {
